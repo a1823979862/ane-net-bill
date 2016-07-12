@@ -15,6 +15,8 @@ public class AbstractTest {
 
 	@Test
 	public void testAll() {
+
+		
 	}
 
 }
