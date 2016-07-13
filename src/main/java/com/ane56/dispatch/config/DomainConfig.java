@@ -7,6 +7,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -15,6 +16,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 
+import com.ane56.db.mybatis.MybatisDao;
+import com.ane56.db.mybatis.MybatisDaoSupport;
+import com.ane56.db.mybatis.MybatisRepositorySupport;
 import com.ane56.db.mybatis.core.PaginationInterceptor;
 import com.ane56.db.mybatis.core.SqlEntityInterceptor;
 import com.ane56.db.mybatis.core.SqlQueryInterceptor;
@@ -42,6 +46,16 @@ public class DomainConfig {
 		interceptors.add(new PaginationInterceptor(dialect));
 		sqlSessionFactoryBean.setPlugins(interceptors.toArray(new Interceptor[0]));
 		return sqlSessionFactoryBean;
+	}
+
+	@Bean
+	public MybatisDao mybatisDao(SqlSessionFactory sqlSessionFactory) {
+		return new MybatisDaoSupport(sqlSessionFactory);
+	}
+
+	@Bean
+	public MybatisRepositorySupport mybatisRepositorySupport(SqlSessionFactory sqlSessionFactory) {
+		return new MybatisRepositorySupport(sqlSessionFactory);
 	}
 
 }
