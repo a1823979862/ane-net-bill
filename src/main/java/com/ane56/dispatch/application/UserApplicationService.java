@@ -14,7 +14,7 @@ import com.ane56.dispatch.port.adapter.utils.IdUtils;
 
 @Service
 public class UserApplicationService {
-
+     
 	@Autowired
 	private UserRepository userRepository;
 
