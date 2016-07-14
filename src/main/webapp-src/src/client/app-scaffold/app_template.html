@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html ng-app="app">
+
 <head>
     <meta charset="utf-8" />
     <style>
-    .ng-cloak { display: none!important; }
-    .ng-hide { display: none!important; }
+    .ng-cloak {
+        display: none!important;
+    }
+    
+    .ng-hide {
+        display: none!important;
+    }
     </style>
     <title>Info</title>
     <meta charset="utf-8" />
@@ -22,24 +28,30 @@
     <link rel="icon" href="images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon">
 </head>
 
-<body class="skin-red sidebar-mini sidebar-collapse">
-    <div class="wrapper">
+<body class="ng-cloak">
 
-        <div ng-include="'main-header-sidebar.html'"></div>
+    <div ng-include="'/sidebar'"></div>
+    <div id="main" role="main">
+        <div id="ribbon">
+            <span class="ribbon-button-alignment"> 
+                <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+                        <i class="fa fa-refresh"></i>
+                </span>
+            </span>
+            <ol class="breadcrumb">
+                <li>Home</li>
+                <li>Dashboard</li>
+            </ol>
+        </div>
 
-        <div class="content-wrapper">
-            <section class="content-header">
-                <h1>页面标题</h1>
-            </section>
-            <section class="content">
-            </section>
+        <!-- MAIN CONTENT -->
+        <div id="content">
+
+
         </div>
     </div>
-    
     <!-- build:js js/lib.js -->
     <!-- bower:js -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js js/app.js -->

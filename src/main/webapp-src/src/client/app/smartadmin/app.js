@@ -512,7 +512,7 @@ var calc_navbar_height = function() {
 		
 		initApp.SmartActions();
 		initApp.leftNav();
-		initApp.domReadyMisc();
+		initApp.domReadyMisc();		
 	
 	});
 /*

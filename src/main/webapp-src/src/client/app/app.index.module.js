@@ -1,6 +1,6 @@
 (function() {
     'use strict';
 
-     angular.module("app", ["app.core"]);
+     angular.module("app", ["app.core" , "app.smartadmin"]);
     
 })();

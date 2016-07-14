@@ -51,8 +51,8 @@
         function getValidationClass(ngModelController, eClass, sClass) {
             if (ngModelController !== undefined && ngModelController.$dirty) {
 
-                var errorClass = eClass || 'state-error';
-                var succussClass = sClass || 'state-success';
+                var errorClass = eClass || 'has-error';
+                var succussClass = sClass || 'has-success';
 
                 return ngModelController.$invalid ? errorClass : succussClass;
             } else {
