@@ -59,6 +59,13 @@ public class UserApplicationServiceTest extends AbstractTest {
 	public void testAllUsersIntInt() {
 		
 	}
+	
+	/**
+	 * 测试提交
+	 */
+	public void test(){
+		
+	}
 
 }
   
