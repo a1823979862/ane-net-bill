@@ -39,7 +39,7 @@
 
 
         function getTemplateUrl(url) {
-            return SERVER_API_URL + 'app-html/user-example' + url;
+            return SERVER_API_URL + 'public/user-example' + url;
         }
 
     }

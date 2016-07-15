@@ -2,6 +2,8 @@ package com.ane56.dispatch.domain.user;
 
 import java.util.Date;
 
+import com.ane56.dispatch.port.adapter.utils.IdUtils;
+
 public class User {
 
 	private long id;
@@ -13,7 +15,30 @@ public class User {
 
 	public User() {
 	}
-	
+
+	public User(String username, String password, String nikename) {
+		super();
+		this.id = IdUtils.id();
+		this.username = username;
+		this.password = password;
+		this.nikename = nikename;
+		this.created = new Date();
+		this.status = true;
+	}
+
+	public void update(String username, String password, String nikename) {
+		this.username = username;
+		this.password = password;
+		this.nikename = nikename;
+	}
+
+	public void enable() {
+		this.status = true;
+	}
+
+	public void disable() {
+		this.status = false;
+	}
 
 	public long getId() {
 		return id;

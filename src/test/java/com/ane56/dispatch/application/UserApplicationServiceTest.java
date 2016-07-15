@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ane56.db.mybatis.Pagination;
 import com.ane56.dispatch.AbstractTest;
-import com.ane56.dispatch.application.command.CreateUserCommand;
+import com.ane56.dispatch.application.command.user.CreateUserCommand;
 import com.ane56.dispatch.domain.user.User;
 
 public class UserApplicationServiceTest extends AbstractTest {

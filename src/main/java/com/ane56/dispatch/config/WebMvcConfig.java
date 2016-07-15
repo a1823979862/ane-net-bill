@@ -40,6 +40,21 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/styles/**").addResourceLocations(
+				"/build/public/styles/");
+		registry.addResourceHandler("/js/**").addResourceLocations(
+				"/build/public/js/");
+		registry.addResourceHandler("/images/**").addResourceLocations(
+				"/build/public/images/");
+		registry.addResourceHandler("/fonts/**").addResourceLocations(
+				"/build/public/fonts/");
+		registry.addResourceHandler("/sound/**").addResourceLocations(
+				"/build/public/sound/");
+		registry.addResourceHandler("/public/**").addResourceLocations(
+				"/build/views/public/");
+
+		
+		registry.addResourceHandler("/views/**").addResourceLocations("/build/views/");
 	}
 	
 	@Override
@@ -85,7 +100,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver view = new InternalResourceViewResolver();
-		view.setPrefix("/WEB-INF/views/");
+		view.setPrefix("/views/");
 		view.setSuffix(".html");
 		view.setCache(false);
 		return view;

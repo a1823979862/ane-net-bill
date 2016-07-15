@@ -11,6 +11,7 @@
     function UserExampleService(restfulHelper, SERVER_API_URL) {
         var service = {
             getUsers: getUsers,
+              getUsers2: getUsers2,
             getUser: getUser,
             update: update,
             remove: remove,
@@ -24,12 +25,18 @@
             return restfulHelper.get(SERVER_API_URL + "api/users");
         }
 
+        function getUsers2(p) {
+
+
+            return restfulHelper.get(SERVER_API_URL + "api/users2?p=" + p );
+        }
+
         function getUser(userId) {
             return restfulHelper.get(SERVER_API_URL + "api/user/" + userId);
         }
 
         function update(user) {
-            return restfulHelper.post(SERVER_API_URL + "api/user/" + user.id, user);
+            return restfulHelper.put(SERVER_API_URL + "api/user/" + user.id, user);
         }
 
         function remove(user) {

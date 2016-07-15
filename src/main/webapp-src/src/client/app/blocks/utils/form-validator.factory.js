@@ -24,6 +24,11 @@
                 requiredDirty = true;
             }
 
+            if(!ngModelController) {
+                return ;
+            }
+
+
             var isDirty = requiredDirty ? ngModelController.$dirty : true;
 
             if (ngModelController !== undefined && isDirty) {

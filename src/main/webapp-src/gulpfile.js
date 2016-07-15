@@ -9,12 +9,14 @@ var assetpaths = require('gulp-assetpaths');
 var gulp = require('gulp');
 var path = require('path');
 var fs = require('fs');
+var ejs = require('ejs');
 var htmlmin = require('gulp-minify-html');
 var _ = require('lodash');
 var $ = require('gulp-load-plugins')({
     lazy: true
 });
 
+var through = require('through2');
 var colors = $.util.colors;
 var envenv = $.util.env;
 var port = process.env.PORT || config.defaultPort;
@@ -85,6 +87,23 @@ gulp.task('images', ['clean-images'], function() {
         // optimizationLevel: 4
         // }))
         .pipe(gulp.dest(config.build + 'images'));
+});
+
+
+/**
+ * Compress images
+ * 
+ * @return {Stream}
+ */
+gulp.task('sound', ['clean-sound'], function() {
+    log('Compressing and copying sound');
+
+    return gulp
+        .src(config.sound)
+        // .pipe($.imagemin({
+        // optimizationLevel: 4
+        // }))
+        .pipe(gulp.dest(config.build + 'sound'));
 });
 
 
@@ -190,6 +209,48 @@ function isExistedFile(file) {
 
     return fs.existsSync(file);
 }
+
+
+gulp.task('create-module', function() {
+
+    var moduleName = args.name;
+    log(' Starting Create module [' + moduleName + ']');
+    var merged = mergeStream();
+    var createModuleTask = createModule(moduleName, false);
+    if (createModuleTask) {
+        merged.add(createModuleTask);
+    }
+    return merged;
+});
+
+function createModule(moduleName, forced) {
+    var module = config.clientApp + moduleName;
+    if (!forced && isExistedFile(module)) {
+        return false;
+    } else {
+        var files = ['controller' , 'module' , 'route' , 'service'];
+        var angularModuleName = moduleName.substring(0 , 1).toUpperCase() + moduleName.substring(1);
+        var options = {
+            controller : angularModuleName + "Controller" ,
+            service :  angularModuleName + "Service" ,
+            module : "app." + moduleName ,
+            name : moduleName 
+        };
+
+        var merged = mergeStream();
+        files.forEach(function(name){
+            var template = config.scaffoldDir + 'module.'+ name+'.js';
+            log(" Create module ["+ moduleName +"] angularjs " + name);
+            merged.add( gulp.src(template)
+                .pipe($.rename( moduleName + '.'+name+'.js'))
+                .pipe($.ejs( options  ) )
+                .pipe(gulp.dest(module)));
+        });
+        return merged;
+    }
+}
+
+
 
 
 /**
@@ -311,7 +372,7 @@ gulp.task('optimize', ['inject'], function() {
  * Build everything This is separate so we can run tests on optimize before
  * handling image or fonts
  */
-gulp.task('build', ['optimize', 'images', 'fonts', 'constants'], function() {
+gulp.task('build', ['optimize', 'images', 'fonts', 'constants' , 'sound'], function() {
     log('Building everything');
 
     var msg = {
@@ -361,8 +422,7 @@ gulp.task('copy-to-webapp' , [] , function(done) {
     );
 
     return gulp.src(files)
-        .pipe(gulp.dest(config.webappDir1))
-        .pipe(gulp.dest(config.webappDir2));
+        .pipe(gulp.dest(config.webappDir));
 });
 
 gulp.task('copy-to-webapp-views', function(done) {
@@ -423,8 +483,15 @@ gulp.task('deploy', function() {
 
 gulp.task('deploy-webapp', function() {
     log('deploy html to Webapp build directory');
+    args.env = "stage";
     $.runSequence('build', 'replaceHtmlDomain', 'copy-resources' , 'copy-public-template' , 'copy-to-webapp');
 });
+
+// gulp.task('deploy-webapp-stage', function() {
+//     log('deploy html to Webapp build directory');
+//     args.env = "stage";
+//     $.runSequence('build', 'replaceHtmlDomain', 'copy-resources' , 'copy-public-template' , 'copy-to-webapp');
+// });
 
 gulp.task('deploy-stage', function() {
     log('deploy html to Webapp build directory');
@@ -481,6 +548,10 @@ gulp.task('clean-images', function(done) {
     clean(config.build + 'images/**/*.*', done);
 });
 
+
+gulp.task('clean-sound', function(done) {
+    clean(config.build + 'sound/**/*.*', done);
+});
 
 
 /**

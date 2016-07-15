@@ -8,6 +8,11 @@ router.get("/api/users", function(req, res, next) {
    buildResponse( res , data.getUsers() );
 });
 
+router.get("/api/users2", function(req, res, next) {
+   buildResponse( res , data.getUsers2() );
+});
+
+
 router.get("/api/user/:userId", function(req, res, next) {
    buildResponse( res , data.getUser() );
 });

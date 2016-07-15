@@ -2,12 +2,12 @@
     "appContext": {
         "prod": "http://localhost:8080",
         "dev": "http://localhost:8080",
-        "stage": "http://localhost:8080"
+        "stage": "http://localhost:8080/ane-dispatch-platform"
     },
     "constants": {
-        "local": {
+        "local" : {
             "SERVER_API_URL": "/"
-        },
+        } ,
         "prod": {
             "SERVER_API_URL": "/"
         },
@@ -15,7 +15,7 @@
             "SERVER_API_URL": "/"
         },
         "stage": {
-            "SERVER_API_URL": "/"
+            "SERVER_API_URL": "/ane-dispatch-platform/"
         }
     },
     "apps": {

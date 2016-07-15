@@ -6,14 +6,15 @@
         .controller('SmartadminController', SmartadminController);
 
 
-    SmartadminController.$inject = ['$scope'];
+    SmartadminController.$inject = ['$scope' , 'SERVER_API_URL'];
 
-    function SmartadminController($scope) {
+    function SmartadminController($scope , SERVER_API_URL) {
         var vm = this;
 
         init();
 
         function init() {
+            $scope.sidebar =  SERVER_API_URL + "sidebar";
             initSidebar();
         }
 

@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="user in vm.users">
+                            <tr ng-repeat="user in vm.users.result">
                                 <td>{{user.id}}</td>
                                 <td>{{user.username}}</td>
                                 <td>{{user.nikename}}</td>
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-sm-10 col-xs-12 text-right">
                                 <div class="dataTables_paginate">
-                                    <ul class="pagination pagination-sm">
+                                 <!--    <ul class="pagination pagination-sm">
                                         <li class="paginate_button previous disabled" aria-controls="dt_basic" tabindex="0" id="dt_basic_previous"><a href="#">Previous</a></li>
                                         <li class="paginate_button active" aria-controls="dt_basic" tabindex="0"><a href="#">1</a></li>
                                         <li class="paginate_button " aria-controls="dt_basic" tabindex="0"><a href="#">2</a></li>
@@ -78,7 +78,9 @@
                                         <li class="paginate_button disabled" aria-controls="dt_basic" tabindex="0" id="dt_basic_ellipsis"><a href="#">…</a></li>
                                         <li class="paginate_button " aria-controls="dt_basic" tabindex="0"><a href="#">10</a></li>
                                         <li class="paginate_button next" aria-controls="dt_basic" tabindex="0" id="dt_basic_next"><a href="#">Next</a></li>
-                                    </ul>
+                                    </ul> -->
+
+                                    <div ng-pagination="vm.paginationHandler"></div>
                                 </div>
                             </div>
                         </div>

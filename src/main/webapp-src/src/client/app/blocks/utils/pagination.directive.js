@@ -17,7 +17,7 @@
                 var currentPage = 1;
                 var total = 0;
                 scope.getPages = function() {
-                    var totalPage = getQuery().info().totalPage || 0;
+                    var totalPage = getQuery().totalPage || 0;
                     if (totalPage != total) {
                         currentPage = 1;
                         total = totalPage;
@@ -25,28 +25,31 @@
                     var pages = [];
                     var start = currentPage > 5 ? currentPage - 5 : 1;
                     var end = totalPage - start >= 9 ? start + 9 : totalPage;
-                    if( totalPage - start < 10 ) {
+                    if (totalPage - start < 10) {
                         start -= 9 - (totalPage - start);
                     }
-                    if( start <= 0) {
+                    if (start <= 0) {
                         start = 1;
                     }
-                    for (var i = start ; i <= end ; i++) {
+                    for (var i = start; i <= end; i++) {
                         pages.push(i);
                     }
                     return pages;
                 }
                 scope.next = function() {
-                    if (getQuery().hasNext()) {
+                    if (getQuery().hasNext( currentPage )) {
                         currentPage++;
+                        getQuery().jump(currentPage);
                     }
-                    getQuery().next();
+                   
                 }
                 scope.prev = function() {
-                    if (getQuery().hasPrev()) {
+                    // getQuery().current(currentPage);
+                    if (getQuery().hasPrev(currentPage)) {
                         currentPage--;
+                        getQuery().jump(currentPage);
                     }
-                    getQuery().prev();
+                   
                 }
                 scope.jump = function(p) {
                     if (currentPage != p) {
@@ -58,10 +61,10 @@
                     return currentPage == p;
                 }
                 scope.isFirst = function() {
-                    return !getQuery().hasPrev();
+                    return !getQuery().hasPrev(currentPage);
                 }
                 scope.isLast = function() {
-                    return !getQuery().hasNext();
+                    return !getQuery().hasNext(currentPage);
                 }
 
                 function getQuery() {
@@ -78,4 +81,57 @@
             }
         };
     }]);
+
+    angular.module('blocks.utils').factory('Pagination', PaginationFactory);
+
+    PaginationFactory.$inject = [];
+
+    function PaginationFactory() {
+        var service = {
+            create: createPagination
+        };
+        return service;
+
+        function createPagination(data, call) {
+            var limit = data.limit;
+            var total = data.total;
+            var current = data.current;
+            var ser = {
+                jump: call,
+                hasNext: hasNext,
+                hasPrev: hasPrev,
+                totalPage: totalPage() ,
+                current: current
+            };
+            return ser;
+
+            function totalPage(){
+                var p = total/ limit;
+                if (total % limit != 0 ) {
+                    p++;
+                } 
+                return p;
+            }
+
+            function hasPrev(aCurrent, aLimit) {
+                reset(aCurrent , aLimit);
+                return (current - 1) * limit > 0;
+            }
+
+            function hasNext(aCurrent, aLimit) {
+                reset(aCurrent , aLimit);
+                return (current) * limit < total;
+            }
+
+            function reset(aCurrent, aLimit) {
+                if (aLimit) {
+                    limit = aLimit;
+                }
+                if (aCurrent) {
+                    current = aCurrent;
+                }
+            }
+        }
+    }
+
 })();

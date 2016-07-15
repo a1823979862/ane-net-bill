@@ -37,6 +37,7 @@ module.exports = function() {
             client + 'styles/theme/default.css'
         ],
         fonts: [ bower.directory + 'font-awesome/fonts/**/*.*' , bower.directory + 'bootstrap/fonts/**/*.*'  ],
+        sound: [ client + 'sound/**/*.*']  ,
         html: client + '**/*.html',
         htmlpublic: client + 'public/**/*.html',
         ejstemplates : client + 'template/**/*.*',
@@ -111,10 +112,8 @@ module.exports = function() {
          */
         nodeServer: './src/server/app.js',
         defaultPort: '8002',
-        webappDir1: './../bid-core/src/main/webapp/build/' ,
-        webappDir2: './../bid-web/src/main/webapp/build/' ,
-        webappViewDir1: './../bid-core/src/main/webapp/WEB-INF/views/' , 
-        webappViewDir2: './../bid-web/src/main/webapp/WEB-INF/views/',
+        webappDir: './../webapp/build/' ,
+        webappViewDir: './../webapp/WEB-INF/views/' , 
         webappSrcDir : './dist/' ,
     };
 
