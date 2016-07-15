@@ -64,7 +64,7 @@ public class UserApplicationServiceTest extends AbstractTest {
 	 * 测试提交
 	 */
 	public void test(){
-		
+		System.out.println();
 	}
 
 }
